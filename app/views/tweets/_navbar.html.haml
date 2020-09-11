@@ -1,0 +1,49 @@
+%nav.navbar.navbar-expand-sm.sticky-top.navbar-light{style: "background-color: #BAD3FF"}
+  %button.navbar-toggler{"aria-controls": "navbar", "aria-expanded": "false", "aria-label": "Toggle navigation", "data-target": "#navbar", "data-toggle": "collapse", type: "button"}
+  %span.navbar-toggler-icon
+  #navbar.collapse.navbar-collapse.justify-content-end
+    %ul.navbar-nav.mr-auto
+      %li.nav-item.dropdown
+        %a#dropdown.nav-link{"aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown", href: "#"} MENU
+        .dropdown-menu{"aria-labelledby": "dropdown"}
+          - if user_signed_in?
+            %a.dropdown-item
+              = link_to "ログアウト", destroy_user_session_path, method: :delete
+              %br/
+              = link_to "投稿する", new_tweet_path, class: "post"
+          - else
+            %a.dropdown-item
+              = link_to "ログイン", new_user_session_path, class: "post"
+              %br/
+            %a.dropdown-item
+              = link_to "新規登録", new_user_registration_path, class: "post"
+              %br/
+    %a.navbar-brand{href: root_path} 
+      =link_to image_tag(image_path('favicon.ico'), class: "ico"), root_path
+    %button.btn.btn-primary{"data-target": "#modal-example", "data-toggle": "modal", "data-backdrop":"true"}
+      投稿する
+    #modal-example.modal{:tabindex => "-1"}
+      .modal-dialog
+        .modal-content
+          = form_with url: tweets_path, model: @tweet_in_header do |f|
+            .modal-header
+              %h4#modal-label.modal-title 
+                投稿内容
+              %button.close{"data-dismiss": "modal", type: "button"}
+                %span{"aria-hidden": "true"} ×
+            .modal-body
+              %p
+                タイトル
+                = f.text_field :title, class: "form-control", placeholder: "タイトルを入力"
+                %br/
+              %p
+                内容
+                = f.text_area :content, class: "form-control", placeholder: "投稿内容を入力"
+                %br/
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss": "modal", type: "button"} 閉じる
+              = f.submit "投稿する", class: "btn btn-primary"
+
+    %form.form-inline.my-2.my-md-0
+      %input.form-control.mr-sm-1{placeholder: "Search", type: "search"}
+      %button.btn.btn-outline-info.mt-2.my-sm-0{type: "submit"} 検索する

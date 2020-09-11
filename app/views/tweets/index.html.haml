@@ -1,0 +1,24 @@
+.main
+  = render "navbar"
+  %section.main-top
+    .content
+      .jumbotron
+        %h1 IdeaX
+        %h2.content-subtitle
+          %br/
+          あなたのアイデア進化させてみませんか？
+        %p.content-text
+          IdeaXは様々なアイデアを投稿、閲覧し自分のアイデアを進化させることができる
+          %br/
+          アイデア投稿アプリです
+
+  %section.main-middle
+    - @tweets.each do |tweet|
+      .containers
+        .container
+          .container__title
+            = tweet.title
+          .container__content
+            = tweet.content
+= render "footer"
+    

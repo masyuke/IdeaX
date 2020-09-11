@@ -1,0 +1,40 @@
+.box
+  .box-inner
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = render "users/shared/error_messages", resource: resource
+      %h1 アカウント編集
+      .box-email
+        = f.label :email, "Eメール"
+        %br/
+        = f.email_field :email, autofocus: true, autocomplete: "email"
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .box-password
+        .a-row
+          .column-left
+            = f.label :password, "パスワード変更(変更しない場合は空欄)"
+          .column-right
+        = f.password_field :password, autocomplete: "new-password"
+        - if @minimum_password_length
+          %br/
+          %em
+            = @minimum_password_length
+            文字以上
+      .box-password-confirmation
+        .a-low
+          .column-left
+            =f.label :password_confimation, "変更後パスワード（確認用）"
+          .column-right
+        = f.password_field :password_confirmation, autocomplete: "new-password"
+      .box-password-currentpass
+        .a-low
+          .column-left
+            =f.label :current_password, "現在のパスワード"
+          .column-right
+        = f.password_field :current_password, autocomplete: "current_password"
+      .box-login
+        = f.submit "更新"
+      .box-withdrawal
+        #{button_to "退会", registration_path(resource_name), data: { confirm: "本当に退会しますか？" }, method: :delete}
+      = link_to "トップページに戻る", :back
