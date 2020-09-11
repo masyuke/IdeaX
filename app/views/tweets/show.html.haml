@@ -1,0 +1,11 @@
+= render "navbar"
+%p
+  %b Title:
+  = @tweet.title
+%p
+  %b Content:
+  = @tweet.content
+
+= link_to '編集ページ', edit_tweet_path(@tweet)
+\|
+= link_to 'トップページ', tweets_path

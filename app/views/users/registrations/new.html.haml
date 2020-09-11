@@ -1,0 +1,37 @@
+.box
+  .box-inner
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      %h1 新規登録
+      .box-name
+        = f.label :name, "名前"
+        %br/
+        =f.text_field :name, autofocus: true, autocomplete: "name"
+      .box-email
+        = f.label :email, "Eメール"
+        %br/
+        = f.email_field :email, autofocus: true, autocomplete: "email"
+      .box-password
+        .a-row
+          .column-left
+            = f.label :password, "パスワード"
+          .column-right
+        = f.password_field :password, autocomplete: "new-password"
+      .box-password-confirmation
+        .a-low
+          .column-left
+            =f.label :passwoed_confimation, "パスワード（確認用）"
+          .column-right
+        = f.password_field :password_confirmation, autocomplete: "new-password"
+      .box-login
+        = f.submit "ログイン"
+        .legal-text
+          続行することで、IdeaXの
+          \#{link_to "利用規約", "#"}
+          および
+          \#{link_to "プライバシー規約", "#"}
+          に同意するものとみなされます。
+        - if devise_mapping.rememberable?
+          .remember
+            = f.check_box :remember_me
+            = f.label :remember, "ログインしたままにする"
+          = link_to "トップページに戻る", root_path

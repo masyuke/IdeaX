@@ -1,0 +1,16 @@
+= form_for @tweet do |f|
+  - if @tweet.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tweet.errors.count, "つのエラー")} により投稿が保存できません"
+      %ul
+        - @tweet.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label "タイトル"
+    = f.text_field :title
+  .field
+    = f.label "内容"
+    = f.text_area :content
+  .actions
+    = f.submit '保存'
